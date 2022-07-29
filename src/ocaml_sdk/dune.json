@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "library",
+    "name": "discovery_ocaml_interface",
+    "modules": [
+      "discovery_code",
+      "discovery_ocaml_interface"
+    ],
+    "libraries": [
+      "factori_types",
+      "blockchain",
+      "tzfunc",
+      "ez_api.icurl_lwt",
+      "lwt.unix"
+    ],
+    "implements": [],
+    "preprocess": [],
+    "preprocessor_deps": []
+  }
+]

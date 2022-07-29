@@ -1,0 +1,8 @@
+{
+  "contracts": [
+    {
+      "contract_name": "discovery",
+      "original_format": "michelson"
+    }
+  ]
+}

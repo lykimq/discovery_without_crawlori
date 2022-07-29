@@ -1,0 +1,47 @@
+[
+  {
+    "name": "_default",
+    "type": {
+      "record": {
+        "PairP": [
+          {
+            "PairP": [
+              {
+                "LeafP": [
+                  "key",
+                  {
+                    "base": "key"
+                  }
+                ]
+              },
+              {
+                "LeafP": [
+                  "nonce",
+                  {
+                    "base": "int"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "LeafP": [
+              "signature",
+              {
+                "base": "signature"
+              }
+            ]
+          },
+          {
+            "LeafP": [
+              "uri",
+              {
+                "base": "string"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]

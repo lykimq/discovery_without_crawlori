@@ -1,0 +1,47 @@
+{ parameter (pair (pair (key %key) (int %nonce)) (signature %signature) (string %uri)) ;
+  storage (big_map key_hash (pair int string)) ;
+  code { UNPAIR ;
+         DUP ;
+         CAR ;
+         CAR ;
+         DUP ;
+         HASH_KEY ;
+         DUP 3 ;
+         CDR ;
+         CDR ;
+         DUP 4 ;
+         CAR ;
+         CDR ;
+         DUP 6 ;
+         DUP 4 ;
+         GET ;
+         IF_NONE
+           {}
+           { CAR ;
+             DUP 2 ;
+             COMPARE ;
+             GT ;
+             NOT ;
+             IF { PUSH string "old nonce" ; FAILWITH } {} } ;
+         DUP 2 ;
+         DUP 2 ;
+         PAIR ;
+         PACK ;
+         DIG 5 ;
+         CDR ;
+         CAR ;
+         DIG 5 ;
+         CHECK_SIGNATURE ;
+         NOT ;
+         IF { PUSH string "invalid signature" ; FAILWITH } {} ;
+         DIG 3 ;
+         DUG 2 ;
+         PAIR ;
+         DIG 2 ;
+         SWAP ;
+         SOME ;
+         SWAP ;
+         UPDATE ;
+         NIL operation ;
+         PAIR } }
+
