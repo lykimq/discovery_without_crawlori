@@ -6,21 +6,15 @@ open Discovery_ocaml_interface
 open Tzfunc.Rp
 open Factori_types
 
-let key_hash_0 = "tz1cQHF5EpGrGWt3fdYLJrWmNZBVw2oKqPwY"
-
-let nonce = Z.zero
-
-let uri = "http://localhost:4440"
-
 let bob_default =
   {
     uri = Blockchain.ithaca_node;
     signature = Blockchain.bob_flextesa.sk;
-    nonce;
+    nonce = Z.zero;
     key = Blockchain.bob_flextesa.pkh;
   }
 
-let discovery_storage = Literal [(key_hash_0, (nonce, uri))]
+let discovery_storage = Literal [(Blockchain.alice_flextesa.pkh, (Z.zero, Blockchain.ithaca_node))]
 
 let main () =
   let _ = Tzfunc.Node.set_silent true in
