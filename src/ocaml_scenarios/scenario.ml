@@ -12,6 +12,14 @@ let nonce = Z.zero
 
 let uri = "http://localhost:4440"
 
+let bob_default =
+  {
+    uri = Blockchain.ithaca_node;
+    signature = Blockchain.bob_flextesa.sk;
+    nonce;
+    key = Blockchain.bob_flextesa.pkh;
+  }
+
 let discovery_storage = Literal [(key_hash_0, (nonce, uri))]
 
 let main () =
@@ -27,16 +35,30 @@ let main () =
       discovery_storage
   in
   Format.printf "KT1:%s@" discovery_kt1 ;
+  (* call entrypoint in discovery contract *)
+  let>? bob_op_hash =
+    call__default
+      ~node:Blockchain.ithaca_node
+      ~from:Blockchain.bob_flextesa
+      ~kt1:discovery_kt1
+      bob_default
+  in
+  Format.printf "Bob calls discovery entrypoint:%s@" bob_op_hash ;
   (* transfer 1000 mutez from alice to bob *)
   let>? op_hash =
     Blockchain.make_transfer
       ~node:Blockchain.ithaca_node
       ~amount:1000L
       ~from:Blockchain.alice_flextesa
-      ~dst:"tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6" (* to bob_flextesa *)
+      ~dst:Blockchain.bob_flextesa.pkh
       ()
   in
   Format.printf "Transfer from alice to bob hash: %s" op_hash ;
+  (* get balance *)
+  let>? get_balance =
+    Blockchain.get_balance ~addr:Blockchain.bob_flextesa.pkh ()
+  in
+  Format.printf "Balance of bob: %Li@" get_balance ;
   Lwt.return_ok ()
 
 let _ = Lwt_main.run (main ())
