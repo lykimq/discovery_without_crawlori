@@ -29,16 +29,16 @@ let main () =
       ~amount:10000L
       discovery_storage
   in
-  Format.printf "KT1:%s@" discovery_kt1 ;
+  Format.printf "KT1:%s\n" discovery_kt1 ;
   (* call entrypoint in discovery contract *)
-  let>? bob_op_hash =
+  (*let>? bob_op_hash =
     call__default
       ~node:Blockchain.ithaca_node
       ~from:Blockchain.bob_flextesa
       ~kt1:discovery_kt1
       bob_default
   in
-  Format.printf "Bob calls discovery entrypoint:%s@" bob_op_hash ;
+  Format.printf "Bob calls discovery entrypoint:%s@" bob_op_hash ;*)
   (* transfer 1000 mutez from alice to bob *)
   let>? op_hash =
     Blockchain.make_transfer
@@ -48,7 +48,7 @@ let main () =
       ~dst:Blockchain.bob_flextesa.pkh
       ()
   in
-  Format.printf "Transfer from alice to bob hash: %s" op_hash ;
+  Format.printf "Transfer from alice to bob hash: %s\n" op_hash ;
   (* get balance *)
   let>? get_balance =
     Blockchain.get_balance ~addr:Blockchain.bob_flextesa.pkh ()
