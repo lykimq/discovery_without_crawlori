@@ -14,7 +14,8 @@ let bob_default =
     key = Blockchain.bob_flextesa.pkh;
   }
 
-let discovery_storage = Literal [(Blockchain.alice_flextesa.pkh, (Z.zero, Blockchain.ithaca_node))]
+let discovery_storage =
+  Literal [(Blockchain.alice_flextesa.pkh, (Z.zero, Blockchain.ithaca_node))]
 
 let main () =
   let _ = Tzfunc.Node.set_silent true in
